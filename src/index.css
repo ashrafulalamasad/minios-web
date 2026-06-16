@@ -1,0 +1,165 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-accent: #6366f1;
+  --color-accent-light: #818cf8;
+  --color-accent-dark: #4f46e5;
+  --color-surface: #f8fafc;
+  --color-surface-dark: #0f172a;
+}
+
+:root {
+  --glass-bg: rgba(255, 255, 255, 0.65);
+  --glass-border: rgba(255, 255, 255, 0.4);
+  --glass-shadow: 0 8px 32px rgba(31, 38, 135, 0.12);
+  --mesh-1: #e0e7ff;
+  --mesh-2: #f0fdf4;
+  --mesh-3: #fdf4ff;
+}
+
+.dark {
+  --glass-bg: rgba(15, 23, 42, 0.75);
+  --glass-border: rgba(148, 163, 184, 0.15);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  --mesh-1: #1e1b4b;
+  --mesh-2: #0c4a6e;
+  --mesh-3: #312e81;
+}
+
+* {
+  box-sizing: border-box;
+  scrollbar-width: thin;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.app-mesh-bg {
+  background:
+    radial-gradient(ellipse at 20% 20%, var(--mesh-1) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, var(--mesh-2) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, var(--mesh-3) 0%, transparent 70%),
+    var(--color-surface);
+}
+
+.dark .app-mesh-bg {
+  background:
+    radial-gradient(ellipse at 20% 20%, var(--mesh-1) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, var(--mesh-2) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, var(--mesh-3) 0%, transparent 70%),
+    var(--color-surface-dark);
+}
+
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  border-radius: 1rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.glass-card:hover {
+  border-color: rgba(99, 102, 241, 0.3);
+}
+
+.card-hover {
+  @apply transition-all duration-300 ease-out;
+}
+.card-hover:hover {
+  @apply scale-[1.03] -translate-y-1;
+}
+
+.btn-primary {
+  @apply inline-flex items-center justify-center gap-2 rounded-xl bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-indigo-500/25 transition-all hover:bg-indigo-700 hover:text-white hover:shadow-indigo-600/40 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed;
+}
+
+.btn-secondary {
+  @apply inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white/50 px-4 py-2 text-sm font-medium text-slate-700 transition-all hover:bg-slate-800 hover:text-white hover:border-slate-800 active:scale-[0.98] dark:border-slate-600 dark:bg-slate-800/50 dark:text-slate-200 dark:hover:bg-white dark:hover:text-slate-900;
+}
+
+.btn-danger {
+  @apply inline-flex items-center justify-center gap-2 rounded-xl border border-red-300 bg-red-50 px-4 py-2 text-sm font-medium text-red-700 transition-all hover:bg-red-100 active:scale-[0.98] dark:border-red-800 dark:bg-red-950/50 dark:text-red-300 dark:hover:bg-red-950/80;
+}
+
+.input-field {
+  @apply w-full rounded-lg border border-slate-300 bg-white/70 px-3 py-2 text-sm text-slate-800 outline-none transition-all focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 dark:border-slate-600 dark:bg-slate-800/70 dark:text-slate-100;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.input-error {
+  @apply border-red-500 ring-2 ring-red-500/20;
+}
+
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-down {
+  animation: slide-down 0.3s ease-out;
+}
+
+.striped-waste {
+  background: repeating-linear-gradient(
+    45deg,
+    #fbbf24,
+    #fbbf24 4px,
+    #f59e0b 4px,
+    #f59e0b 8px
+  );
+}
+
+.gantt-idle {
+  background-color: #e2e8f0;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 4px,
+    #cbd5e1 4px,
+    #cbd5e1 5px
+  );
+}
+.dark .gantt-idle {
+  background-color: #334155;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 4px,
+    #475569 4px,
+    #475569 5px
+  );
+}
