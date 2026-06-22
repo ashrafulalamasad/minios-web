@@ -17,9 +17,9 @@ export default function AboutPage({ onNavigate }) {
     <div className="space-y-8">
       {/* Hero */}
       <div className="glass-card p-6 sm:p-8 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+        <div className="absolute top-0 right-0 w-64 h-64 bg-slate-900/[0.02] dark:bg-white/[0.02] rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
         <div className="relative">
-          <BrandLogo size="lg" showText />
+          <BrandLogo iconClassName="h-14 w-14" textClassName="text-2xl" showText />
           <p className="mt-4 text-slate-600 dark:text-slate-300 max-w-2xl leading-relaxed">
             An open-source educational simulator built to help students and developers understand
             core operating system algorithms through interactive, hands-on experimentation.
@@ -32,7 +32,7 @@ export default function AboutPage({ onNavigate }) {
         <h2 className="text-xl font-bold text-slate-800 dark:text-white mb-4">Our Mission</h2>
         <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
           Operating system concepts can be abstract and difficult to grasp through theory alone.
-          MiniOS Simulator bridges that gap by providing a visual, interactive environment where
+          MiniOS Web bridges that gap by providing a visual, interactive environment where
           learners can experiment with real algorithms, observe their behavior, and understand
           the outcomes — all without setting up complex environments or writing backend code.
         </p>
@@ -48,7 +48,7 @@ export default function AboutPage({ onNavigate }) {
         <h2 className="text-xl font-bold text-slate-800 dark:text-white mb-4">What We Cover</h2>
         <div className="grid gap-6 sm:grid-cols-3">
           <div className="flex gap-3">
-            <Cpu className="h-6 w-6 text-indigo-600 dark:text-indigo-400 shrink-0 mt-0.5" />
+            <Cpu className="h-6 w-6 text-amber-600 dark:text-amber-500 shrink-0 mt-0.5" />
             <div>
               <h3 className="text-sm font-semibold text-slate-800 dark:text-white mb-1">CPU Scheduling</h3>
               <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
@@ -83,7 +83,7 @@ export default function AboutPage({ onNavigate }) {
         <div className="grid gap-4 sm:grid-cols-2">
           {techStack.map((tech) => (
             <div key={tech.name} className="flex items-start gap-3">
-              <Code2 className="h-5 w-5 text-indigo-600 dark:text-indigo-400 shrink-0 mt-0.5" />
+              <Code2 className="h-5 w-5 text-amber-600 dark:text-amber-500 shrink-0 mt-0.5" />
               <div>
                 <h3 className="text-sm font-semibold text-slate-800 dark:text-white">{tech.name}</h3>
                 <p className="text-xs text-slate-500 dark:text-slate-400">{tech.desc}</p>
@@ -98,7 +98,7 @@ export default function AboutPage({ onNavigate }) {
         <h2 className="text-xl font-bold text-slate-800 dark:text-white mb-4">Our Values</h2>
         <div className="grid gap-4 sm:grid-cols-3">
           <div className="flex gap-3">
-            <Globe className="h-5 w-5 text-indigo-600 dark:text-indigo-400 shrink-0 mt-0.5" />
+            <Globe className="h-5 w-5 text-amber-600 dark:text-amber-500 shrink-0 mt-0.5" />
             <div>
               <h3 className="text-sm font-semibold text-slate-800 dark:text-white mb-1">Open Source</h3>
               <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
@@ -137,7 +137,7 @@ export default function AboutPage({ onNavigate }) {
           <button
             type="button"
             onClick={() => onNavigate('cpu')}
-            className="inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-5 py-2.5 text-sm font-medium text-white shadow-md shadow-indigo-500/25 hover:bg-indigo-700 transition-colors cursor-pointer"
+            className="inline-flex items-center gap-2 rounded-xl bg-amber-600 px-5 py-2.5 text-sm font-medium text-white shadow-md shadow-amber-500/25 hover:bg-amber-700 transition-colors cursor-pointer"
           >
             <Cpu className="h-4 w-4" />
             CPU Scheduling

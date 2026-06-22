@@ -38,7 +38,7 @@ export default function Navbar({ modules, activeModule, onNavigate }) {
         }`}
       >
         <div className="flex items-center justify-between gap-3 px-4 sm:px-6 py-3">
-          <BrandLogo size="sm" onClick={() => handleNav('home')} />
+          <BrandLogo iconClassName="h-8 w-8" textClassName="text-xl" onClick={() => handleNav('home')} />
           <div className="flex items-center gap-2">
             <ThemeToggle compact />
             <button
@@ -64,7 +64,7 @@ export default function Navbar({ modules, activeModule, onNavigate }) {
               onClick={() => handleNav('home')}
               className={`w-full flex items-center gap-3 rounded-xl px-4 py-3 text-left transition-all ${
                 activeModule === 'home'
-                  ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/25'
+                  ? 'bg-amber-600 text-white shadow-lg shadow-amber-500/25'
                   : 'text-slate-600 hover:bg-white/60 dark:text-slate-300 dark:hover:bg-slate-800/60'
               }`}
             >
@@ -79,7 +79,7 @@ export default function Navbar({ modules, activeModule, onNavigate }) {
                   onClick={() => handleNav(mod.id)}
                   className={`w-full flex items-center gap-3 rounded-xl px-4 py-3 text-left transition-all ${
                     isActive
-                      ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/25'
+                      ? 'bg-amber-600 text-white shadow-lg shadow-amber-500/25'
                       : 'text-slate-600 hover:bg-white/60 dark:text-slate-300 dark:hover:bg-slate-800/60'
                   }`}
                 >
@@ -92,7 +92,7 @@ export default function Navbar({ modules, activeModule, onNavigate }) {
               onClick={() => handleNav('about')}
               className={`w-full flex items-center gap-3 rounded-xl px-4 py-3 text-left transition-all ${
                 activeModule === 'about'
-                  ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/25'
+                  ? 'bg-amber-600 text-white shadow-lg shadow-amber-500/25'
                   : 'text-slate-600 hover:bg-white/60 dark:text-slate-300 dark:hover:bg-slate-800/60'
               }`}
             >
@@ -108,7 +108,7 @@ export default function Navbar({ modules, activeModule, onNavigate }) {
           visible ? 'translate-y-0' : '-translate-y-full'
         }`}
       >
-        <BrandLogo size="sm" showText onClick={() => onNavigate('home')} />
+        <BrandLogo iconClassName="h-10 w-10" textClassName="text-2xl" showText onClick={() => onNavigate('home')} />
 
         <div className="flex items-center gap-1">
           <NavLink

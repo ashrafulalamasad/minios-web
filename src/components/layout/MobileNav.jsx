@@ -14,11 +14,11 @@ export default function MobileNav({ modules, activeModule, onNavigate }) {
             onClick={() => onNavigate('home')}
             className={`flex flex-1 flex-col items-center gap-1 rounded-xl py-2 text-[10px] font-medium transition-all ${
               activeModule === 'home'
-                ? 'bg-indigo-600/10 text-indigo-600 dark:text-indigo-400'
+                ? 'bg-amber-600/10 text-amber-600 dark:text-amber-500'
                 : 'text-slate-500 dark:text-slate-400'
             }`}
           >
-            <div className={`rounded-lg p-1.5 ${activeModule === 'home' ? 'bg-indigo-600 text-white shadow-md shadow-indigo-500/30' : ''}`}>
+            <div className={`rounded-lg p-1.5 ${activeModule === 'home' ? 'bg-amber-600 text-white shadow-md shadow-amber-500/30' : ''}`}>
               <Home className="h-4 w-4" />
             </div>
             Home
@@ -33,11 +33,11 @@ export default function MobileNav({ modules, activeModule, onNavigate }) {
                 onClick={() => onNavigate(mod.id)}
                 className={`flex flex-1 flex-col items-center gap-1 rounded-xl py-2 text-[10px] font-medium transition-all ${
                   isActive
-                    ? 'bg-indigo-600/10 text-indigo-600 dark:text-indigo-400'
+                    ? 'bg-amber-600/10 text-amber-600 dark:text-amber-500'
                     : 'text-slate-500 dark:text-slate-400'
                 }`}
               >
-                <div className={`rounded-lg p-1.5 ${isActive ? 'bg-indigo-600 text-white shadow-md shadow-indigo-500/30' : ''}`}>
+                <div className={`rounded-lg p-1.5 ${isActive ? 'bg-amber-600 text-white shadow-md shadow-amber-500/30' : ''}`}>
                   <Icon className="h-4 w-4" />
                 </div>
                 <span className="truncate max-w-[64px]">{mod.label.split(' ')[0]}</span>

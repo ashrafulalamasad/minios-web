@@ -28,7 +28,7 @@ export default function Footer({ onNavigate }) {
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
           <div className="sm:col-span-2 lg:col-span-1">
-            <BrandLogo size="sm" showText />
+            <BrandLogo iconClassName="h-8 w-8" textClassName="text-lg" showText />
             <p className="mt-2 text-xs text-slate-500 dark:text-slate-400 leading-relaxed max-w-xs">
               An interactive educational simulator for core operating system algorithms.
             </p>
@@ -47,7 +47,7 @@ export default function Footer({ onNavigate }) {
                     <button
                       type="button"
                       onClick={() => onNavigate(link.id)}
-                      className="group flex items-center gap-2 text-xs text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors cursor-pointer"
+                      className="group flex items-center gap-2 text-xs text-slate-600 dark:text-slate-400 hover:text-amber-600 dark:hover:text-amber-500 transition-colors cursor-pointer"
                     >
                       <Icon className="h-3.5 w-3.5 opacity-60 group-hover:opacity-100" />
                       {link.label}
@@ -71,7 +71,7 @@ export default function Footer({ onNavigate }) {
                     <button
                       type="button"
                       onClick={() => onNavigate(link.id)}
-                      className="group flex items-center gap-2 text-xs text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors cursor-pointer"
+                      className="group flex items-center gap-2 text-xs text-slate-600 dark:text-slate-400 hover:text-amber-600 dark:hover:text-amber-500 transition-colors cursor-pointer"
                     >
                       <BookOpen className="h-3.5 w-3.5 opacity-60 group-hover:opacity-100" />
                       {link.label}
@@ -95,7 +95,7 @@ export default function Footer({ onNavigate }) {
                     <button
                       type="button"
                       onClick={() => onNavigate(link.id)}
-                      className="group flex items-center gap-2 text-xs text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors cursor-pointer"
+                      className="group flex items-center gap-2 text-xs text-slate-600 dark:text-slate-400 hover:text-amber-600 dark:hover:text-amber-500 transition-colors cursor-pointer"
                     >
                       <Icon className="h-3.5 w-3.5 opacity-60 group-hover:opacity-100" />
                       {link.label}
@@ -108,8 +108,8 @@ export default function Footer({ onNavigate }) {
         </div>
 
         <div className="mt-6 pt-4 border-t border-slate-200/50 dark:border-slate-700/50 flex items-center justify-center">
-          <p className="text-xs text-slate-500 dark:text-slate-400">
-            &copy; {year} MiniOS Simulator. All rights reserved.
+          <p className="text-sm text-slate-500 dark:text-slate-400">
+            &copy; {year} MiniOS Web. All rights reserved.
           </p>
         </div>
       </div>

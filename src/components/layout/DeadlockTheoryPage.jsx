@@ -62,8 +62,8 @@ export default function DeadlockTheoryPage({ onNavigate }) {
               all resources at once (eliminating hold and wait).
             </p>
           </div>
-          <div className="p-4 rounded-xl bg-blue-50 dark:bg-blue-950/30 border border-blue-200/50 dark:border-blue-800/50">
-            <h4 className="text-sm font-semibold text-blue-700 dark:text-blue-400 mb-1">Avoidance</h4>
+          <div className="p-4 rounded-xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200/50 dark:border-amber-800/50">
+            <h4 className="text-sm font-semibold text-amber-700 dark:text-amber-400 mb-1">Avoidance</h4>
             <p className="text-xs text-slate-600 dark:text-slate-400">
               Dynamically check if granting a resource request would lead to an unsafe state.
               The Banker's Algorithm is a classic avoidance strategy.

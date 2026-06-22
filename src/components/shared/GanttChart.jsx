@@ -1,14 +1,14 @@
 import { useMemo } from 'react'
 
 const PROCESS_COLORS = [
-  'bg-indigo-500',
-  'bg-emerald-500',
+  'bg-amber-600',
+  'bg-emerald-600',
   'bg-orange-500',
-  'bg-pink-500',
-  'bg-cyan-500',
-  'bg-violet-500',
-  'bg-amber-500',
+  'bg-red-500',
+  'bg-slate-700',
   'bg-rose-500',
+  'bg-yellow-500',
+  'bg-stone-600',
 ]
 
 function getColor(pid, colorMap) {

@@ -36,9 +36,9 @@ export default function MetricsTable({ columns, rows, footer, title }) {
               </tr>
             ))}
             {footer && (
-              <tr className="border-t-2 border-indigo-200 dark:border-indigo-800 bg-indigo-50/50 dark:bg-indigo-950/30 font-semibold">
+              <tr className="border-t-2 border-amber-200 dark:border-amber-800 bg-amber-50/50 dark:bg-amber-950/30 font-semibold">
                 {columns.map((col) => (
-                  <td key={col.key} className="px-4 py-2.5 text-indigo-700 dark:text-indigo-300 font-mono">
+                  <td key={col.key} className="px-4 py-2.5 text-amber-700 dark:text-amber-300 font-mono">
                     {col.format ? col.format(footer[col.key], footer) : footer[col.key]}
                   </td>
                 ))}

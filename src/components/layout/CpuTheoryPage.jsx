@@ -4,10 +4,10 @@ export default function CpuTheoryPage({ onNavigate }) {
   return (
     <div className="space-y-8">
       <div className="glass-card p-8 sm:p-10 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-48 h-48 bg-indigo-500/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+        <div className="absolute top-0 right-0 w-48 h-48 bg-slate-900/[0.02] dark:bg-white/[0.02] rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
         <div className="relative">
           <div className="flex items-center gap-3 mb-4">
-            <Cpu className="h-8 w-8 text-indigo-600 dark:text-indigo-400" />
+            <Cpu className="h-8 w-8 text-amber-600 dark:text-amber-500" />
             <h1 className="text-3xl font-bold text-slate-800 dark:text-white">CPU Scheduling Algorithms</h1>
           </div>
           <p className="text-slate-600 dark:text-slate-300">A comprehensive guide to process scheduling in operating systems</p>
@@ -30,7 +30,7 @@ export default function CpuTheoryPage({ onNavigate }) {
 
       <section className="glass-card p-6 sm:p-8">
         <div className="flex items-center gap-3 mb-4">
-          <Clock className="h-5 w-5 text-indigo-600 dark:text-indigo-400" />
+          <Clock className="h-5 w-5 text-amber-600 dark:text-amber-500" />
           <h2 className="text-xl font-bold text-slate-800 dark:text-white">FCFS (First-Come, First-Served)</h2>
         </div>
         <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-4">

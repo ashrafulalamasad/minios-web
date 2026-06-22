@@ -1,10 +1,10 @@
 const PROCESS_HUES = [
-  'bg-indigo-500',
-  'bg-emerald-500',
+  'bg-amber-600',
+  'bg-emerald-600',
   'bg-orange-500',
-  'bg-pink-500',
-  'bg-cyan-500',
-  'bg-violet-500',
+  'bg-red-500',
+  'bg-slate-700',
+  'bg-rose-500',
 ]
 
 function getProcessColor(pid, index) {
@@ -84,7 +84,7 @@ export default function MemoryBlockViz({ blocks, title = 'Memory Layout', metric
 
       <div className="flex flex-wrap gap-4 text-xs text-slate-500 dark:text-slate-400 pt-2 border-t border-slate-200/50 dark:border-slate-700/50">
         <span className="flex items-center gap-1.5"><span className="h-3 w-3 rounded bg-emerald-400/80" /> Free</span>
-        <span className="flex items-center gap-1.5"><span className="h-3 w-3 rounded bg-indigo-500" /> Allocated</span>
+        <span className="flex items-center gap-1.5"><span className="h-3 w-3 rounded bg-amber-600" /> Allocated</span>
         <span className="flex items-center gap-1.5"><span className="h-3 w-3 rounded striped-waste" /> Internal Waste</span>
       </div>
     </div>

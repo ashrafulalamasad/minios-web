@@ -6,8 +6,8 @@ const faqCategories = [
     title: 'General',
     items: [
       {
-        q: 'What is MiniOS Simulator?',
-        a: 'MiniOS Simulator is an interactive educational tool that helps you understand core operating system algorithms like CPU scheduling, memory allocation, and deadlock detection through hands-on experimentation.',
+        q: 'What is MiniOS Web?',
+        a: 'MiniOS Web is an interactive educational tool that helps you understand core operating system algorithms like CPU scheduling, memory allocation, and deadlock detection through hands-on experimentation.',
       },
       {
         q: 'Do I need to install anything?',
@@ -15,7 +15,7 @@ const faqCategories = [
       },
       {
         q: 'Is it free to use?',
-        a: 'Yes! MiniOS Simulator is completely free and open-source under the MIT License. You can use, modify, and distribute it.',
+        a: 'Yes! MiniOS Web is completely free and open-source under the MIT License. You can use, modify, and distribute it.',
       },
     ],
   },
@@ -28,7 +28,7 @@ const faqCategories = [
       },
       {
         q: 'Do you use cookies?',
-        a: 'No. MiniOS Simulator does not use any cookies or tracking technologies. Your browsing experience is completely private.',
+        a: 'No. MiniOS Web does not use any cookies or tracking technologies. Your browsing experience is completely private.',
       },
     ],
   },
@@ -54,11 +54,11 @@ const faqCategories = [
     items: [
       {
         q: 'Is it open source?',
-        a: 'Yes. MiniOS Simulator is open-source and available on GitHub. You can view, modify, and contribute to the code.',
+        a: 'Yes. MiniOS Web is open-source and available on GitHub. You can view, modify, and contribute to the code.',
       },
       {
         q: 'Does it work on mobile?',
-        a: 'Yes. MiniOS Simulator is responsive and works on desktop, tablet, and mobile devices.',
+        a: 'Yes. MiniOS Web is responsive and works on desktop, tablet, and mobile devices.',
       },
       {
         q: 'What technologies are used?',
@@ -96,13 +96,13 @@ export default function FaqPage() {
   return (
     <div className="space-y-8">
       <div className="glass-card p-8 sm:p-10 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-48 h-48 bg-indigo-500/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+        <div className="absolute top-0 right-0 w-48 h-48 bg-slate-900/[0.02] dark:bg-white/[0.02] rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
         <div className="relative">
           <div className="flex items-center gap-3 mb-4">
-            <HelpCircle className="h-8 w-8 text-indigo-600 dark:text-indigo-400" />
+            <HelpCircle className="h-8 w-8 text-amber-600 dark:text-amber-500" />
             <h1 className="text-3xl font-bold text-slate-800 dark:text-white">Frequently Asked Questions</h1>
           </div>
-          <p className="text-slate-600 dark:text-slate-300">Everything you need to know about MiniOS Simulator</p>
+          <p className="text-slate-600 dark:text-slate-300">Everything you need to know about MiniOS Web</p>
         </div>
       </div>
 
