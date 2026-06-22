@@ -1,10 +1,6 @@
 import { Cpu, HardDrive, ShieldAlert, Users, Globe, Code2, Shield } from 'lucide-react'
 import BrandLogo from './BrandLogo'
 
-const team = [
-  { name: 'OS Algorithms', role: 'FCFS, SJF, SRTF, First/Best/Worst Fit, Banker\'s Algorithm' },
-]
-
 const techStack = [
   { name: 'React 19', desc: 'UI framework for reactive components' },
   { name: 'Vite', desc: 'Fast build tool and dev server' },

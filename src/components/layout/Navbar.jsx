@@ -24,16 +24,31 @@ export default function Navbar({ modules, activeModule, onNavigate }) {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+    return () => { document.body.style.overflow = '' }
+  }, [menuOpen])
+
   const handleNav = (id) => {
     onNavigate(id)
     setMenuOpen(false)
   }
 
+  const allNavItems = [
+    { id: 'home', label: 'Home' },
+    ...modules.filter((m) => m.id !== 'home'),
+    { id: 'about', label: 'About' },
+  ]
+
   return (
     <>
       {/* Mobile & tablet top bar */}
       <header
-        className={`lg:hidden fixed top-0 left-0 right-0 z-50 w-full glass-panel border-b border-slate-200/50 dark:border-slate-700/50 transition-transform duration-300 ${
+        className={`lg:hidden fixed top-0 left-0 right-0 z-50 w-full bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700 shadow-md transition-transform duration-300 ${
           visible ? 'translate-y-0' : '-translate-y-full'
         }`}
       >
@@ -48,63 +63,52 @@ export default function Navbar({ modules, activeModule, onNavigate }) {
               aria-label={menuOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={menuOpen}
             >
-              {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              <span className={`block transition-transform duration-300 ${menuOpen ? 'rotate-90' : ''}`}>
+                {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              </span>
             </button>
           </div>
         </div>
-
-        <div
-          className={`overflow-hidden transition-all duration-300 ease-out border-t border-slate-200/40 dark:border-slate-700/40 ${
-            menuOpen ? 'max-h-[420px] opacity-100' : 'max-h-0 opacity-0 border-t-0'
-          }`}
-        >
-          <nav className="px-3 py-3 space-y-1">
-            <button
-              type="button"
-              onClick={() => handleNav('home')}
-              className={`w-full flex items-center gap-3 rounded-xl px-4 py-3 text-left transition-all ${
-                activeModule === 'home'
-                  ? 'bg-amber-600 text-white shadow-lg shadow-amber-500/25'
-                  : 'text-slate-600 hover:bg-white/60 dark:text-slate-300 dark:hover:bg-slate-800/60'
-              }`}
-            >
-              <span className="block font-medium text-sm">Home</span>
-            </button>
-            {modules.filter((m) => m.id !== 'home').map((mod) => {
-              const isActive = activeModule === mod.id
-              return (
-                <button
-                  key={mod.id}
-                  type="button"
-                  onClick={() => handleNav(mod.id)}
-                  className={`w-full flex items-center gap-3 rounded-xl px-4 py-3 text-left transition-all ${
-                    isActive
-                      ? 'bg-amber-600 text-white shadow-lg shadow-amber-500/25'
-                      : 'text-slate-600 hover:bg-white/60 dark:text-slate-300 dark:hover:bg-slate-800/60'
-                  }`}
-                >
-                  <span className="block font-medium text-sm">{mod.label}</span>
-                </button>
-              )
-            })}
-            <button
-              type="button"
-              onClick={() => handleNav('about')}
-              className={`w-full flex items-center gap-3 rounded-xl px-4 py-3 text-left transition-all ${
-                activeModule === 'about'
-                  ? 'bg-amber-600 text-white shadow-lg shadow-amber-500/25'
-                  : 'text-slate-600 hover:bg-white/60 dark:text-slate-300 dark:hover:bg-slate-800/60'
-              }`}
-            >
-              <span className="block font-medium text-sm">About</span>
-            </button>
-          </nav>
-        </div>
       </header>
+
+      {/* Overlay */}
+      {menuOpen && (
+        <div
+          className="lg:hidden fixed inset-0 z-40 bg-black/40 transition-opacity"
+          onClick={() => setMenuOpen(false)}
+        />
+      )}
+
+      {/* Slide-in drawer from right — below navbar */}
+      <div
+        className={`lg:hidden fixed top-[60px] right-0 z-50 w-[60%] min-w-[240px] h-[calc(100vh-60px)] bg-white dark:bg-slate-900 shadow-2xl transition-transform duration-300 ease-out ${
+          menuOpen ? 'translate-x-0' : 'translate-x-full'
+        }`}
+      >
+        <nav className="px-3 py-3 space-y-1">
+          {allNavItems.map((item) => {
+            const isActive = activeModule === item.id
+            return (
+              <button
+                key={item.id}
+                type="button"
+                onClick={() => handleNav(item.id)}
+                className={`w-full flex items-center rounded-xl px-4 py-3 text-left transition-all text-sm font-medium ${
+                  isActive
+                    ? 'bg-black text-white'
+                    : 'text-black dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800'
+                }`}
+              >
+                {item.label}
+              </button>
+            )
+          })}
+        </nav>
+      </div>
 
       {/* Desktop top bar */}
       <header
-        className={`hidden lg:flex fixed top-0 left-0 right-0 z-20 w-full items-center justify-between gap-4 border-b border-slate-200/50 dark:border-slate-700/50 glass-panel px-6 xl:px-10 py-4 transition-transform duration-300 ${
+        className={`hidden lg:flex fixed top-0 left-0 right-0 z-20 w-full items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-md px-6 xl:px-10 py-4 transition-transform duration-300 ${
           visible ? 'translate-y-0' : '-translate-y-full'
         }`}
       >

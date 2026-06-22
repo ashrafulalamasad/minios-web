@@ -74,7 +74,7 @@ export function applyDeadlockFix(fixType, state, need) {
       return { ...state, request: state.request.map(() => 0) }
     case 'reduce_max': {
       const newMax = state.max.map((row) => [...row])
-      newMax[0] = newMax[0].map((v) => Math.max(state.allocation[0][newMax[0].indexOf(v)] || 0, v - 1))
+      newMax[0] = newMax[0].map((v, j) => Math.max(state.allocation[0][j] || 0, v - 1))
       return { ...state, max: newMax }
     }
     default:

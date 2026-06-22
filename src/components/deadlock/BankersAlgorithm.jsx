@@ -131,27 +131,32 @@ export default function BankersAlgorithm() {
     if (errors.length) return
     setSimulating(true)
     setTimeout(() => {
-      const baseSafety = runSafetyCheck(available, allocation, max)
-      setSafety(baseSafety)
+      try {
+        const baseSafety = runSafetyCheck(available, allocation, max)
+        setSafety(baseSafety)
 
-      let reqRes = null
-      if (enableRequest) {
-        const reqErrs = validateRequest(requestProcess, request, available, computeNeed(allocation, max))
-        if (!reqErrs.length) {
-          reqRes = simulateRequest(requestProcess, request, available, allocation, max)
-          setRequestResult(reqRes)
+        let reqRes = null
+        if (enableRequest) {
+          const reqErrs = validateRequest(requestProcess, request, available, need)
+          if (!reqErrs.length) {
+            reqRes = simulateRequest(requestProcess, request, available, allocation, max)
+            setRequestResult(reqRes)
+          } else {
+            setRequestResult(null)
+          }
         } else {
           setRequestResult(null)
         }
-      } else {
+      } catch {
+        setSafety(null)
         setRequestResult(null)
+      } finally {
+        setSimulating(false)
       }
-
-      setSimulating(false)
     }, 300)
-  }, [config, available, allocation, max, enableRequest, requestProcess, request, errors])
+  }, [available, allocation, max, enableRequest, requestProcess, request, need, errors])
 
-  const handleResize = (newP, newR) => {
+  const handleResize = useCallback((newP, newR) => {
     setConfig((prev) => ({
       ...prev,
       processCount: newP,
@@ -163,18 +168,18 @@ export default function BankersAlgorithm() {
     }))
     setSafety(null)
     setRequestResult(null)
-  }
+  }, [setConfig])
 
-  const handleReset = () => {
+  const handleReset = useCallback(() => {
     setConfig(DEFAULT_DEADLOCK)
     setSafety(null)
     setRequestResult(null)
-  }
+  }, [setConfig])
 
-  const handleClearResults = () => {
+  const handleClearResults = useCallback(() => {
     setSafety(null)
     setRequestResult(null)
-  }
+  }, [])
 
   const displaySafety = requestResult?.safety ?? safety
 
@@ -196,8 +201,9 @@ export default function BankersAlgorithm() {
       <div className="glass-card p-5 space-y-6">
         <div className="flex flex-wrap gap-4">
           <div>
-            <label className="text-xs font-semibold text-slate-500 dark:text-slate-400">Processes</label>
+            <label htmlFor="banker-processes" className="text-xs font-semibold text-slate-500 dark:text-slate-400">Processes</label>
             <input
+              id="banker-processes"
               type="number"
               min={1}
               max={10}
@@ -207,8 +213,9 @@ export default function BankersAlgorithm() {
             />
           </div>
           <div>
-            <label className="text-xs font-semibold text-slate-500 dark:text-slate-400">Resources</label>
+            <label htmlFor="banker-resources" className="text-xs font-semibold text-slate-500 dark:text-slate-400">Resources</label>
             <input
+              id="banker-resources"
               type="number"
               min={1}
               max={10}
@@ -270,8 +277,9 @@ export default function BankersAlgorithm() {
           {enableRequest && (
             <div className="mt-3 flex flex-wrap items-end gap-4">
               <div>
-                <label className="text-xs text-slate-500">Requesting Process</label>
+                <label htmlFor="banker-request-process" className="text-xs text-slate-500">Requesting Process</label>
                 <select
+                  id="banker-request-process"
                   value={requestProcess}
                   onChange={(e) => setConfig((prev) => ({ ...prev, requestProcess: Number(e.target.value) }))}
                   className="input-field mt-1"

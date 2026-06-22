@@ -7,6 +7,7 @@ import GanttChart from '../shared/GanttChart'
 import MetricsTable from '../shared/MetricsTable'
 import ModuleActions from '../shared/ModuleActions'
 import { useLocalStorage } from '../../hooks/useLocalStorage'
+import { STORAGE_KEYS } from '../../utils/storageKeys'
 import { DEFAULT_CPU } from '../../constants/defaults'
 import { runFCFS } from '../../algorithms/cpu/fcfs'
 import { runSJF } from '../../algorithms/cpu/sjf'
@@ -46,15 +47,15 @@ function runAlgorithm(algorithm, processes, quantum) {
 }
 
 const ALGO_STORAGE = {
-  fcfs: 'minios-cpu-fcfs',
-  sjf: 'minios-cpu-sjf',
-  srtf: 'minios-cpu-srtf',
-  rr: 'minios-cpu-rr',
+  fcfs: STORAGE_KEYS.CPU_FCFS,
+  sjf: STORAGE_KEYS.CPU_SJF,
+  srtf: STORAGE_KEYS.CPU_SRTF,
+  rr: STORAGE_KEYS.CPU_RR,
 }
 
 export default function CpuScheduler() {
-  const [algorithm, setAlgorithm] = useLocalStorage('minios-cpu-algorithm', 'fcfs')
-  const [quantum, setQuantum] = useLocalStorage('minios-cpu-quantum', 2)
+  const [algorithm, setAlgorithm] = useLocalStorage(STORAGE_KEYS.CPU_ALGORITHM, 'fcfs')
+  const [quantum, setQuantum] = useLocalStorage(STORAGE_KEYS.CPU_QUANTUM, 2)
   const [processes, setProcesses] = useLocalStorage(ALGO_STORAGE[algorithm] || ALGO_STORAGE.fcfs, DEFAULT_CPU.processes)
   const [results, setResults] = useState(null)
   const [simulating, setSimulating] = useState(false)
@@ -84,36 +85,40 @@ export default function CpuScheduler() {
     if (hasBlockingErrors(errors)) return
     setSimulating(true)
     setTimeout(() => {
-      const res = runAlgorithm(algorithm, processes, quantum)
-      setResults(res)
-      setSimulating(false)
+      try {
+        const res = runAlgorithm(algorithm, processes, quantum)
+        setResults(res)
+      } catch {
+        setResults(null)
+      } finally {
+        setSimulating(false)
+      }
     }, 300)
   }, [algorithm, processes, quantum, errors])
 
-  const updateProcess = (index, key, value) => {
+  const updateProcess = useCallback((index, key, value) => {
     setProcesses((prev) => prev.map((p, i) => (i === index ? { ...p, [key]: value } : p)))
     setResults(null)
-  }
+  }, [setProcesses])
 
-  const addProcess = () => {
-    const n = processes.length + 1
-    setProcesses((prev) => [...prev, { id: `P${n}`, arrival: '', burst: '' }])
-  }
+  const addProcess = useCallback(() => {
+    setProcesses((prev) => [...prev, { id: `P${prev.length + 1}`, arrival: '', burst: '' }])
+  }, [setProcesses])
 
-  const removeProcess = (index) => {
+  const removeProcess = useCallback((index) => {
     setProcesses((prev) => prev.filter((_, i) => i !== index))
-  }
+  }, [setProcesses])
 
-  const handleReset = () => {
+  const handleReset = useCallback(() => {
     setProcesses(DEFAULT_CPU.processes)
     setAlgorithm('fcfs')
     setQuantum(2)
     setResults(null)
-  }
+  }, [setProcesses, setAlgorithm, setQuantum])
 
-  const handleClearResults = () => {
+  const handleClearResults = useCallback(() => {
     setResults(null)
-  }
+  }, [])
 
   return (
     <div className="space-y-6">
@@ -133,8 +138,9 @@ export default function CpuScheduler() {
 
       <div className="glass-card p-5 space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-          <label className="text-sm font-semibold text-slate-700 dark:text-slate-200">Algorithm</label>
+          <label htmlFor="cpu-algorithm" className="text-sm font-semibold text-slate-700 dark:text-slate-200">Algorithm</label>
           <select
+            id="cpu-algorithm"
             value={algorithm}
             onChange={(e) => { setAlgorithm(e.target.value); setResults(null) }}
             className="input-field max-w-xs"
@@ -148,8 +154,9 @@ export default function CpuScheduler() {
 
         {algorithm === 'rr' && (
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-            <label className="text-sm font-semibold text-slate-700 dark:text-slate-200">Time Quantum</label>
+            <label htmlFor="cpu-quantum" className="text-sm font-semibold text-slate-700 dark:text-slate-200">Time Quantum</label>
             <input
+              id="cpu-quantum"
               type="number"
               min={1}
               value={quantum}

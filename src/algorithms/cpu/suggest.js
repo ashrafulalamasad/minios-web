@@ -68,7 +68,7 @@ export function analyzeCpuSuggestions(processes, errors, results, algorithm) {
   return null
 }
 
-export function applyCpuFix(fixType, processes, setAlgorithm) {
+export function applyCpuFix(fixType, processes) {
   switch (fixType) {
     case 'clamp_burst':
       return processes.map((p) => ({ ...p, burst: p.burst <= 0 ? 1 : p.burst }))
@@ -78,9 +78,6 @@ export function applyCpuFix(fixType, processes, setAlgorithm) {
       const minArr = Math.min(...processes.map((p) => p.arrival))
       return processes.map((p) => ({ ...p, arrival: p.arrival - minArr }))
     }
-    case 'switch_sjf':
-      setAlgorithm?.('sjf')
-      return processes
     default:
       return processes
   }

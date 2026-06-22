@@ -30,8 +30,8 @@ export function useLocalStorage(key, defaultValue) {
         window.localStorage.setItem(key, JSON.stringify(next))
         setStoredValue(next)
         window.dispatchEvent(new StorageEvent('storage', { key, newValue: JSON.stringify(next) }))
-      } catch (err) {
-        console.warn(`useLocalStorage: failed to set key "${key}"`, err)
+      } catch {
+        // silent fail — localStorage may be full or disabled
       }
     },
     [key, readValue],
@@ -48,22 +48,4 @@ export function useLocalStorage(key, defaultValue) {
   return [storedValue, setValue]
 }
 
-export function getStorageItem(key, defaultValue) {
-  try {
-    const item = window.localStorage.getItem(key)
-    return item != null ? JSON.parse(item) : defaultValue
-  } catch {
-    return defaultValue
-  }
-}
 
-export function setStorageItem(key, value) {
-  window.localStorage.setItem(key, JSON.stringify(value))
-}
-
-export function pushHistory(key, entry, max = 20) {
-  const history = getStorageItem(key, [])
-  const next = [{ ...entry, id: crypto.randomUUID(), timestamp: new Date().toISOString() }, ...history].slice(0, max)
-  setStorageItem(key, next)
-  return next
-}

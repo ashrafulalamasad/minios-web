@@ -77,6 +77,7 @@ function FaqItem({ question, answer }) {
         type="button"
         onClick={() => setOpen(!open)}
         className="w-full flex items-center justify-between gap-3 py-4 text-left cursor-pointer"
+        aria-expanded={open}
       >
         <span className="text-sm font-medium text-slate-800 dark:text-white">{question}</span>
         {open ? (

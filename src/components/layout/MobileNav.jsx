@@ -6,7 +6,7 @@ export default function MobileNav({ modules, activeModule, onNavigate }) {
   const navModules = modules.filter((m) => m.id !== 'home')
 
   return (
-    <nav className="lg:hidden fixed bottom-0 inset-x-0 z-40">
+    <nav className="lg:hidden fixed bottom-0 inset-x-0 z-40" aria-label="Mobile navigation">
       <div className="glass-panel border-t border-slate-200/50 dark:border-slate-700/50 px-2 pt-2 pb-[max(0.5rem,env(safe-area-inset-bottom))]">
         <div className="flex items-stretch justify-around gap-1">
           <button

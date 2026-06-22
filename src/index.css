@@ -83,10 +83,6 @@ body {
   @apply inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white/50 px-4 py-2 text-sm font-medium text-slate-700 transition-all hover:bg-slate-800 hover:text-white hover:border-slate-800 active:scale-[0.98] dark:border-slate-600 dark:bg-slate-800/50 dark:text-slate-200 dark:hover:bg-white dark:hover:text-slate-900;
 }
 
-.btn-danger {
-  @apply inline-flex items-center justify-center gap-2 rounded-xl border border-red-300 bg-red-50 px-4 py-2 text-sm font-medium text-red-700 transition-all hover:bg-red-100 active:scale-[0.98] dark:border-red-800 dark:bg-red-950/50 dark:text-red-300 dark:hover:bg-red-950/80;
-}
-
 .input-field {
   @apply w-full rounded-lg border border-slate-300 bg-white/70 px-3 py-2 text-sm text-slate-800 outline-none transition-all focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 dark:border-slate-600 dark:bg-slate-800/70 dark:text-slate-100;
 }
@@ -149,3 +145,37 @@ input[type="number"] {
     #475569 5px
   );
 }
+
+@keyframes float-particle {
+  0%, 100% { transform: translateY(0) translateX(0); opacity: 0.3; }
+  50% { transform: translateY(-15px) translateX(8px); opacity: 0.6; }
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-glow {
+  position: relative;
+}
+.hero-glow::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(245, 158, 11, 0.02), rgba(245, 158, 11, 0.25));
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  pointer-events: none;
+}
+
+.hero-fade-in {
+  animation: fade-in-up 0.6s ease-out both;
+}
+.hero-fade-in-delay-1 { animation-delay: 0.1s; }
+.hero-fade-in-delay-2 { animation-delay: 0.2s; }
+.hero-fade-in-delay-3 { animation-delay: 0.3s; }

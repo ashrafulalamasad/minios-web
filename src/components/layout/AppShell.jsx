@@ -1,6 +1,5 @@
 import Navbar from './Navbar'
 import Footer from './Footer'
-import MobileNav from './MobileNav'
 
 export default function AppShell({ modules, activeModule, onNavigate, children }) {
   return (
@@ -14,8 +13,6 @@ export default function AppShell({ modules, activeModule, onNavigate, children }
       </main>
 
       <Footer onNavigate={onNavigate} />
-
-      <MobileNav modules={modules} activeModule={activeModule} onNavigate={onNavigate} />
     </div>
   )
 }

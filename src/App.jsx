@@ -1,5 +1,5 @@
 import { useEffect, useCallback } from 'react'
-import { BrowserRouter, Routes, Route, useNavigate, useLocation } from 'react-router-dom'
+import { BrowserRouter, useNavigate, useLocation } from 'react-router-dom'
 import { useLocalStorage } from './hooks/useLocalStorage'
 import { STORAGE_KEYS } from './utils/storageKeys'
 import { MODULES } from './constants/defaults'

@@ -7,7 +7,7 @@ const PROCESS_HUES = [
   'bg-rose-500',
 ]
 
-function getProcessColor(pid, index) {
+function getProcessColor(index) {
   return PROCESS_HUES[index % PROCESS_HUES.length]
 }
 
@@ -58,7 +58,7 @@ export default function MemoryBlockViz({ blocks, title = 'Memory Layout', metric
 
                   if (seg.type === 'allocated') {
                     const pidIndex = parseInt(seg.pid?.replace(/\D/g, '') || '0', 10)
-                    className = getProcessColor(seg.pid, pidIndex)
+                    className = getProcessColor(pidIndex)
                     label = seg.pid
                   } else if (seg.type === 'waste') {
                     className = 'striped-waste opacity-80'

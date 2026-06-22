@@ -71,7 +71,7 @@ export function analyzeMemorySuggestions(blocks, processes, errors, results, alg
   return null
 }
 
-export function applyMemoryFix(fixType, blocks, processes, setAlgorithm) {
+export function applyMemoryFix(fixType, blocks, processes) {
   switch (fixType) {
     case 'sanitize_sizes':
       return {
@@ -85,9 +85,6 @@ export function applyMemoryFix(fixType, blocks, processes, setAlgorithm) {
         processes: processes.map((p) => ({ ...p, sizeKB: Math.min(p.sizeKB, maxBlock) })),
       }
     }
-    case 'switch_best_fit':
-      setAlgorithm?.('best-fit')
-      return { blocks, processes }
     default:
       return { blocks, processes }
   }

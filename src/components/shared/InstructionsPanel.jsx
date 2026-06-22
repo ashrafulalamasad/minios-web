@@ -10,6 +10,7 @@ export default function InstructionsPanel({ title, items, defaultOpen = true }) 
         type="button"
         onClick={() => setOpen(!open)}
         className="w-full flex items-center justify-between gap-3 px-5 py-4 text-left hover:bg-white/30 dark:hover:bg-slate-800/30 transition-colors"
+        aria-expanded={open}
       >
         <div className="flex items-center gap-2">
           <Info className="h-5 w-5 text-amber-600 dark:text-amber-500 shrink-0" />

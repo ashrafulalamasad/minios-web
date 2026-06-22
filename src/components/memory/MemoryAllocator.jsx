@@ -78,36 +78,41 @@ export default function MemoryAllocator() {
     if (hasBlockingMemoryErrors(errors)) return
     setSimulating(true)
     setTimeout(() => {
-      const res = allocateMemory(blocks, processes, algorithm)
-      setResults(res)
-      setSimulating(false)
+      try {
+        const res = allocateMemory(blocks, processes, algorithm)
+        setResults(res)
+      } catch {
+        setResults(null)
+      } finally {
+        setSimulating(false)
+      }
     }, 300)
   }, [algorithm, blocks, processes, errors])
 
-  const updateBlock = (index, key, value) => {
+  const updateBlock = useCallback((index, key, value) => {
     setConfig((prev) => ({
       ...prev,
       blocks: prev.blocks.map((b, i) => (i === index ? { ...b, [key]: value } : b)),
     }))
     setResults(null)
-  }
+  }, [setConfig])
 
-  const updateProcess = (index, key, value) => {
+  const updateProcess = useCallback((index, key, value) => {
     setConfig((prev) => ({
       ...prev,
       processes: prev.processes.map((p, i) => (i === index ? { ...p, [key]: value } : p)),
     }))
     setResults(null)
-  }
+  }, [setConfig])
 
-  const handleReset = () => {
+  const handleReset = useCallback(() => {
     setConfig(DEFAULT_MEMORY)
     setResults(null)
-  }
+  }, [setConfig])
 
-  const handleClearResults = () => {
+  const handleClearResults = useCallback(() => {
     setResults(null)
-  }
+  }, [])
 
   return (
     <div className="space-y-6">
@@ -126,8 +131,9 @@ export default function MemoryAllocator() {
 
       <div className="glass-card p-5 space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-          <label className="text-sm font-semibold text-slate-700 dark:text-slate-200">Algorithm</label>
+          <label htmlFor="mem-algorithm" className="text-sm font-semibold text-slate-700 dark:text-slate-200">Algorithm</label>
           <select
+            id="mem-algorithm"
             value={algorithm}
             onChange={(e) => { setConfig((prev) => ({ ...prev, algorithm: e.target.value })); setResults(null) }}
             className="input-field max-w-xs"
