@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo } from 'react'
+import { useState, useCallback, useMemo, useRef } from 'react'
 import { HardDrive } from 'lucide-react'
 import InstructionsPanel from '../shared/InstructionsPanel'
 import SmartSuggestionPanel from '../shared/SmartSuggestionPanel'
@@ -6,6 +6,7 @@ import EditableTable from '../shared/EditableTable'
 import MemoryBlockViz from '../shared/MemoryBlockViz'
 import MetricsTable from '../shared/MetricsTable'
 import ModuleActions from '../shared/ModuleActions'
+import MemoryAnalysisPanel from './MemoryAnalysisPanel'
 import { useLocalStorage } from '../../hooks/useLocalStorage'
 import { STORAGE_KEYS } from '../../utils/storageKeys'
 import { DEFAULT_MEMORY } from '../../constants/defaults'
@@ -14,7 +15,7 @@ import { validateMemoryInputs, hasBlockingMemoryErrors } from '../../algorithms/
 import { analyzeMemorySuggestions, applyMemoryFix } from '../../algorithms/memory/suggest'
 
 const INSTRUCTIONS = [
-  'Define memory blocks with sizes in KB — each block can hold one process.',
+  'Define memory blocks with sizes in KB - each block can hold one process.',
   'Add processes with their memory requirements in KB, processed in order.',
   'Choose First Fit (first block that fits), Best Fit (smallest sufficient block), or Worst Fit (largest block).',
   'Colored segments show allocated memory; striped areas are internal fragmentation (wasted space inside a block).',
@@ -51,8 +52,9 @@ export default function MemoryAllocator() {
   const [config, setConfig] = useLocalStorage(STORAGE_KEYS.MEMORY, DEFAULT_MEMORY)
   const [results, setResults] = useState(null)
   const [simulating, setSimulating] = useState(false)
+  const resultsRef = useRef(null)
 
-  const { algorithm, blocks, processes } = config
+  const { algorithm, partitionType = 'fixed', blocks, processes } = config
   const errors = useMemo(() => validateMemoryInputs(blocks, processes), [blocks, processes])
 
   const suggestion = useMemo(() => {
@@ -79,15 +81,18 @@ export default function MemoryAllocator() {
     setSimulating(true)
     setTimeout(() => {
       try {
-        const res = allocateMemory(blocks, processes, algorithm)
+        const res = allocateMemory(blocks, processes, algorithm, partitionType)
         setResults(res)
+        setTimeout(() => {
+          resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        }, 50)
       } catch {
         setResults(null)
       } finally {
         setSimulating(false)
       }
     }, 300)
-  }, [algorithm, blocks, processes, errors])
+  }, [algorithm, blocks, processes, errors, partitionType])
 
   const updateBlock = useCallback((index, key, value) => {
     setConfig((prev) => ({
@@ -127,7 +132,6 @@ export default function MemoryAllocator() {
       </div>
 
       <InstructionsPanel title="How it works" items={INSTRUCTIONS} />
-      <SmartSuggestionPanel suggestion={suggestion} />
 
       <div className="glass-card p-5 space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
@@ -141,6 +145,19 @@ export default function MemoryAllocator() {
             <option value="first-fit">First Fit</option>
             <option value="best-fit">Best Fit</option>
             <option value="worst-fit">Worst Fit</option>
+          </select>
+        </div>
+
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <label htmlFor="mem-partition" className="text-sm font-semibold text-slate-700 dark:text-slate-200">Partition</label>
+          <select
+            id="mem-partition"
+            value={config.partitionType || 'fixed'}
+            onChange={(e) => { setConfig((prev) => ({ ...prev, partitionType: e.target.value })); setResults(null) }}
+            className="input-field max-w-xs"
+          >
+            <option value="fixed">Fixed Partition</option>
+            <option value="dynamic">Dynamic Partition</option>
           </select>
         </div>
 
@@ -184,11 +201,13 @@ export default function MemoryAllocator() {
       </div>
 
       {results && (
-        <>
+        <div ref={resultsRef} className="scroll-mt-8 space-y-6">
           <MemoryBlockViz blocks={results.initialBlocks} title="Initial Memory Layout" metrics={null} />
           <MemoryBlockViz blocks={results.finalBlocks} title="Final Memory Layout" metrics={results.metrics} />
           <MetricsTable title="Allocation Results" columns={RESULT_COLUMNS} rows={results.allocations} />
-        </>
+          <MemoryAnalysisPanel results={results} blocks={blocks} processes={processes} algorithm={algorithm} partitionType={partitionType} />
+          <SmartSuggestionPanel suggestion={suggestion} />
+        </div>
       )}
     </div>
   )
