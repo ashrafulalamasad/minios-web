@@ -1,11 +1,12 @@
-import { useState, useCallback, useMemo } from 'react'
-import { Cpu } from 'lucide-react'
+import { useState, useCallback, useMemo, useRef } from 'react'
+import { Cpu, Timer, Zap, Clock, ArrowRightLeft } from 'lucide-react'
 import InstructionsPanel from '../shared/InstructionsPanel'
 import SmartSuggestionPanel from '../shared/SmartSuggestionPanel'
 import EditableTable from '../shared/EditableTable'
 import GanttChart from '../shared/GanttChart'
 import MetricsTable from '../shared/MetricsTable'
 import ModuleActions from '../shared/ModuleActions'
+import CpuAnalysisPanel from './CpuAnalysisPanel'
 import { useLocalStorage } from '../../hooks/useLocalStorage'
 import { STORAGE_KEYS } from '../../utils/storageKeys'
 import { DEFAULT_CPU } from '../../constants/defaults'
@@ -59,6 +60,7 @@ export default function CpuScheduler() {
   const [processes, setProcesses] = useLocalStorage(ALGO_STORAGE[algorithm] || ALGO_STORAGE.fcfs, DEFAULT_CPU.processes)
   const [results, setResults] = useState(null)
   const [simulating, setSimulating] = useState(false)
+  const resultsRef = useRef(null)
 
   const errors = useMemo(() => validateCpuInputs(processes), [processes])
 
@@ -88,6 +90,9 @@ export default function CpuScheduler() {
       try {
         const res = runAlgorithm(algorithm, processes, quantum)
         setResults(res)
+        setTimeout(() => {
+          resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        }, 50)
       } catch {
         setResults(null)
       } finally {
@@ -122,6 +127,7 @@ export default function CpuScheduler() {
 
   return (
     <div className="space-y-6">
+      {/* Header */}
       <div className="flex items-center gap-3">
         <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-600 text-white">
           <Cpu className="h-5 w-5" />
@@ -134,8 +140,7 @@ export default function CpuScheduler() {
 
       <InstructionsPanel title="How it works" items={INSTRUCTIONS} />
 
-      <SmartSuggestionPanel suggestion={suggestion} />
-
+      {/* Configuration */}
       <div className="glass-card p-5 space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <label htmlFor="cpu-algorithm" className="text-sm font-semibold text-slate-700 dark:text-slate-200">Algorithm</label>
@@ -184,8 +189,9 @@ export default function CpuScheduler() {
         />
       </div>
 
+      {/* Results */}
       {results && (
-        <>
+        <div ref={resultsRef} className="scroll-mt-8 space-y-6">
           <GanttChart gantt={results.gantt} />
           <MetricsTable
             title="Performance Metrics"
@@ -199,11 +205,9 @@ export default function CpuScheduler() {
               turnaround: results.averages.tat.toFixed(2),
             }}
           />
-          <div className="glass-card p-4 text-sm text-slate-600 dark:text-slate-300">
-            <span className="font-semibold">Idle Time:</span> {results.idleTime} units ·{' '}
-            <span className="font-semibold">Total Time:</span> {results.totalTime} units
-          </div>
-        </>
+          <CpuAnalysisPanel results={results} processes={processes} algorithm={algorithm} quantum={quantum} />
+          <SmartSuggestionPanel suggestion={suggestion} />
+        </div>
       )}
     </div>
   )
