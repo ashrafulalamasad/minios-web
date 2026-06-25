@@ -1,6 +1,6 @@
-import { Cpu, HardDrive, ShieldAlert, Home } from 'lucide-react'
+import { Cpu, HardDrive, ShieldAlert, Home, Globe } from 'lucide-react'
 
-const iconMap = { Home, Cpu, HardDrive, ShieldAlert }
+const iconMap = { Home, Cpu, HardDrive, ShieldAlert, Globe }
 
 export default function MobileNav({ modules, activeModule, onNavigate }) {
   const navModules = modules.filter((m) => m.id !== 'home')
