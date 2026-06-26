@@ -25,6 +25,29 @@ export const DEFAULT_MEMORY = {
   ],
 }
 
+export const DEFAULT_DEADLOCK_UNSAFE = {
+  processCount: 5,
+  resourceCount: 3,
+  available: [0, 1, 1],
+  allocation: [
+    [0, 1, 0],
+    [2, 0, 0],
+    [3, 0, 2],
+    [2, 1, 1],
+    [0, 0, 2],
+  ],
+  max: [
+    [7, 5, 3],
+    [3, 2, 2],
+    [9, 0, 2],
+    [2, 2, 2],
+    [4, 3, 3],
+  ],
+  requestProcess: 1,
+  request: [1, 0, 2],
+  enableRequest: false,
+}
+
 export const DEFAULT_DEADLOCK = {
   processCount: 5,
   resourceCount: 3,
@@ -53,4 +76,5 @@ export const MODULES = [
   { id: 'cpu', label: 'CPU Scheduling', icon: 'Cpu' },
   { id: 'memory', label: 'Memory Allocation', icon: 'HardDrive' },
   { id: 'deadlock', label: 'Deadlock Detection', icon: 'ShieldAlert' },
+  { id: 'real-life', label: 'Real Life', icon: 'Globe' },
 ]

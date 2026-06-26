@@ -16,8 +16,9 @@ import NotFoundPage from './components/layout/NotFoundPage'
 import CpuScheduler from './components/cpu/CpuScheduler'
 import MemoryAllocator from './components/memory/MemoryAllocator'
 import BankersAlgorithm from './components/deadlock/BankersAlgorithm'
+import RealLifePage from './components/layout/RealLifePage'
 
-const VALID_PATHS = ['home', 'cpu', 'memory', 'deadlock', 'about', 'privacy', 'terms', 'faq', 'cpu-theory', 'memory-theory', 'deadlock-theory']
+const VALID_PATHS = ['home', 'cpu', 'memory', 'deadlock', 'real-life', 'about', 'privacy', 'terms', 'faq', 'cpu-theory', 'memory-theory', 'deadlock-theory']
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -58,6 +59,7 @@ function AppRoutes() {
       case 'cpu': return <CpuScheduler />
       case 'memory': return <MemoryAllocator />
       case 'deadlock': return <BankersAlgorithm />
+      case 'real-life': return <RealLifePage onNavigate={handleNavigate} />
       case 'about': return <AboutPage onNavigate={handleNavigate} />
       case 'privacy': return <PrivacyPage />
       case 'terms': return <TermsPage />
